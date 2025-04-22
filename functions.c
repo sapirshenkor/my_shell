@@ -24,7 +24,7 @@ static void runPwd() {
     puts(getcwd(wd, sizeof wd));
     exit(0);
 }
-
+//take care the getline
 char* readCommand(){
     char* line=NULL;
     size_t len=0;
@@ -36,7 +36,7 @@ char* readCommand(){
     return line;
     
 }
-
+//tokenization
 parseInfo *parse(char *line) {
     parseInfo *pi = malloc(sizeof(*pi));
     pi->args = malloc(sizeof(char*) * (MAX_ARGS+1));
@@ -55,7 +55,7 @@ void freeParseInfo(parseInfo *info) {
     free(info->args);
     free(info);
 }
-
+//take care in the builtin actions
 static int builtin(parseInfo* info){
     if(!info->argCount){return 1;}
     char* cmd =info->args[0];
@@ -75,7 +75,7 @@ static int builtin(parseInfo* info){
     }
     return 0; // not built‑in
 }
-
+//execute Command like pip redirect and execvp
 void executeCommand(parseInfo *pi) {
     if (!pi->argCount) return;              // blank line
 

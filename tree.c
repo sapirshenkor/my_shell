@@ -24,15 +24,18 @@ void print_tree(const char* path,int level){
         if (entry->d_name[0] == '.' || strstr(entry->d_name, ".git"))
             continue;
 
+        // print tree-like indentation
         for (int i = 0; i < level; i++)
         {
-            printf("   ");
+            printf("|   ");
         }      
-        printf("|- %s\n", entry->d_name);
+        printf("├── %s\n", entry->d_name);
 
+        // build full path
         char fullpath[MAX_PATH];
         snprintf(fullpath,sizeof(fullpath),"%s/%s",path,entry->d_name);
 
+        // check if it's a directory and recurse 
         struct stat item_stat;
         if(stat(fullpath,&item_stat)==0 && S_ISDIR(item_stat.st_mode))
             {print_tree(fullpath,level+1);}

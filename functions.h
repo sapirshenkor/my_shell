@@ -7,7 +7,7 @@ typedef struct
     int argCount;
 }parseInfo;
 
-//functions that read the user input
+//parsing the user input
 char* readCommand();
 parseInfo* parse(char* cmdLine);
 void freeParseInfo(parseInfo* info);
