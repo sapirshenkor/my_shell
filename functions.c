@@ -79,6 +79,16 @@ static int builtin(parseInfo* info){
 void executeCommand(parseInfo *pi) {
     if (!pi->argCount) return;              // blank line
 
+    if (pi->argCount && !strcmp(pi->args[0], "tree")) {
+        if (access("tree", X_OK) != 0) {
+            fprintf(stderr, "tree: command not found. Please compile with: gcc -o tree tree.c\n");
+            return;
+        }
+        execvp("./tree", pi->args);
+        perror("execvp failed----");
+        return;
+    }    
+
     // locate |  >  >>
     int pipeIndex=-1, redirIndex=-1, append=0;
     for (int i=0;i<pi->argCount;i++) {
